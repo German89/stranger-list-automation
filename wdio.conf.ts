@@ -3,6 +3,11 @@ const browserArgs = process.argv.find(arg => arg.includes("--browsers="))?.split
 const browserList = browserArgs ? browserArgs.split(",") : ["chrome"]; // Default to Chrome
 
 export const config: WebdriverIO.Config = {
+    hostname: process.env.SELENIUM_REMOTE_URL ? 'localhost' : undefined,
+    port: process.env.PORT ? parseInt(process.env.PORT) : undefined,
+    path: process.env.REMOTE_PATH ? process.env.REMOTE_PATH : undefined,
+
+
     //
     // ====================
     // Runner Configuration
@@ -67,7 +72,7 @@ export const config: WebdriverIO.Config = {
                 }
             }
         }else{
-            return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content"] }};
+            return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content", "--disable-gpu"] }};
         }
     }),
 

@@ -3,7 +3,7 @@ import {browser} from "@wdio/globals";
 
 class HomePage extends Page{
     private editButtonXpath = "//div/button[text()='Edit']";
-    private deleteButtonXpath = "//div/button[text()='Delete']";
+    private deleteButtonXpath = "[ng-click='strangerlist.open(item)']";
 
     public get uploadImageNewItem(){
         return $('#inputImage');
@@ -38,7 +38,7 @@ class HomePage extends Page{
     public async findItemWithDescription(itemText: string) {
        const element =  browser.$("//p[text()='"+ itemText +"']/parent::div/parent::div/parent::div");
        try{
-           await element.waitForExist({timeout:1000});
+           await element.waitForExist({timeout:2000});
        }catch (e) {
            console.log("Element still does not exist after timeout");
        }
@@ -58,7 +58,7 @@ class HomePage extends Page{
      * @param item element
      */
     public async clickDeleteButtonOfItem(item: ChainablePromiseElement){
-        await item.$(this.deleteButtonXpath).click();
+        await this.clickOnButton(item.$(this.deleteButtonXpath));
     }
 
     /**
@@ -84,7 +84,7 @@ class HomePage extends Page{
     public async clickConfirmDeleteItemButton(){
         await this.warningModalSubmit.click();
         await this.warningModalSubmit.waitForExist({reverse:true, timeout:2000});
-        await browser.pause(500);
+        await browser.pause(1000);
     }
 }
 export default new HomePage();

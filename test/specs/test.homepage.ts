@@ -1,7 +1,6 @@
 import HomePage from "../pageobjects/homePage.ts";
-import {generateRandomString} from "../pageobjects/helper.ts";
+import {generateRandomString, resolvePath} from "../pageobjects/helper.ts";
 import { expect } from 'chai';
-import path from "path";
 
 describe('Validate Stranger List Home page', () => {
     let description =  generateRandomString(15);
@@ -14,7 +13,8 @@ describe('Validate Stranger List Home page', () => {
         //Generate a random string to pass as a text of item description
         await HomePage.typeOnInput(HomePage.textAreaInput, description);
         //Upload an image into the image field
-        await HomePage.typeOnInput(HomePage.uploadImageNewItem,path.resolve('./test/testdata/images/newImage.jpg'));
+        let path = await resolvePath('./test/testdata/images/newImage.jpg');
+        await HomePage.typeOnInput(HomePage.uploadImageNewItem, path);
         //Click the Create button
         await HomePage.clickOnButton(HomePage.createItemButton);
 
@@ -40,12 +40,12 @@ describe('Validate Stranger List Home page', () => {
             .to.equals(await HomePage.getValueOfElement(HomePage.textAreaInput),'The text has not been copied to the left edit box');
 
         //Generate a random text to replace the one on the item and type it
-        let description = generateRandomString(25);
-        await HomePage.typeOnInput(HomePage.textAreaInput, description);
+        let text = generateRandomString(25);
+        await HomePage.typeOnInput(HomePage.textAreaInput, text);
 
         //Click on Update item button and validate the item has been updated
         await HomePage.clickOnButton(HomePage.updateItemButton);
-        expect(await HomePage.getTextOfItemCard(HomePage.getListOfItems()[0])).to.be.equals(description,'The item has not been updated');
+        expect(await HomePage.getTextOfItemCard(HomePage.getListOfItems()[0])).to.be.equals(text,'The item has not been updated');
     });
 
     it("Remove the item created and validate it has been removed from the list",async()=>{
@@ -67,7 +67,7 @@ describe('Validate Stranger List Home page', () => {
         expect(await HomePage.createItemButton.isEnabled()).to.equals(false,'The Create item button should be disabled with 301 characters');
     });
 
-    it('Check if exist in the list the item with text “Creators: Matt Duffer, Ross Duffer”',async()=>{
+    it('Check if exist in the list the item with text Creators Matt Duffer, Ross Duffer',async()=>{
         expect(await HomePage.findItemWithDescription('Creators: Matt Duffer, Ross Duffer')).to.not.be.undefined;
     });
 });
