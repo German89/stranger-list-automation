@@ -3,7 +3,9 @@ const browserArgs = process.argv.find(arg => arg.includes("--browsers="))?.split
 const browserList = browserArgs ? browserArgs.split(",") : ["chrome"]; // Default to Chrome
 
 export const config: WebdriverIO.Config = {
-    hostname: process.env.SELENIUM_REMOTE_URL ? 'localhost' : undefined,
+
+    //If hostname, port and path are specified use them, if not it's just a local run
+    hostname: process.env.SELENIUM_REMOTE_URL ? process.env.SELENIUM_REMOTE_URL : undefined,
     port: process.env.PORT ? parseInt(process.env.PORT) : undefined,
     path: process.env.REMOTE_PATH ? process.env.REMOTE_PATH : undefined,
 
