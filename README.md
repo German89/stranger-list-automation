@@ -15,9 +15,11 @@ You can choose wich browser or platform to use using the --browser flag and spec
 
 Firefox or Chrome tests will run in headless mode, if you want to see the browser running remove the headless flag from the capabilities located in ./wdio.conf.ts file
 
-For Firefox remove --headless from the args on the following command  :return "{ browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: ["--headless"]} }" 
+For Firefox remove --headless from the args on the following command in capabilities section  :return "{ browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: ["--headless"]} }" 
 
-For Chrome line 70 remove --headless from the args on the following command "return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content"] }}"
+For Chrome remove --headless from the args on the following command in capabilities section "return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content"] }}"
+
+Every failing test will produce an screenshot that will be saved on ./screenshot folder , the name of the file will be the name of the test suite + name of the test.
 
 
 Steps to run tests in Android Chrome.
@@ -37,8 +39,19 @@ This will allow appium to etablish a connection with the device.
 5 - Check that the plugged in device is recognized by running the command "adb devices" this should list at least 1 device.
 
 6 - Start the appium server running the "appium" command, by default the port 4723 will be used, if this port is busy please change to a different port by running
-"appium --port 5000" (e.g: for port 5000) and change the port used by the framework on the capabilities located in the file wdio.conf.ts line 64
+"appium --port 5000" (e.g: for port 5000) and change the port used by the framework on the capabilities located in the file wdio.conf.ts
 return {port: 4723,platformName: "android", browserName: "Chrome","appium:automationName" ... by the port of your choise
 
 7 - In order to run the tests pointing to the android device, run the following command on the root folder of the project "npx wdio run wdio.conf.ts --browser=android"
 You should see the command passing through the appium server adn the chrome browser running on the device.
+
+Steps to run in docker containers.
+-------------------------------------------------------------
+Tests can run in chrome or firefox using Selenium hub and docker containers.
+
+1 - On the root of the project run the following command to start the containers and selenium-hub "docker-compose up -d"
+
+2 - Docker hub will start by default at "http://localhost:4444/ui/" where you can monitor which container is in use.
+
+3 - On the root of the project run the following command providing the environment variables to target the selenium-hub and use the containers, provide a value for the browsers flag to choose the browser
+"$env:SELENIUM_REMOTE_URL="localhost"; $env:PORT="4444"; $env:REMOTE_PATH="/wd/hub"; npx wdio run wdio.conf.js --browsers=chrome"
