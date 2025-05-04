@@ -28,7 +28,7 @@ To run on Android chrome we need to use Appium and a real device connected to th
 
 1 - Install Appium running the following command "npm install -g appium"
 
-2 - Install ui-automator-2 driver running "npm install -g appium-uiautomator2-driver"
+2 - Install ui-automator-2 driver running "appium driver install uiautomator2"
 
 3 - If you want to use a real android device to run the tests, you will need to first enable the developper mode on your device (navigate to Settings > About phone > Build number and tap the Build number field seven times),
 Then enable USB debugging (navigate to Settings > System > Advanced > Developer options and toggle the USB debugging option to on).
