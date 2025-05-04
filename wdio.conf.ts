@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 const browserArgs = process.argv.find(arg => arg.includes("--browsers="))?.split("=")[1];
 const browserList = browserArgs ? browserArgs.split(",") : ["chrome"]; // Default to Chrome
 
@@ -68,7 +69,8 @@ export const config: WebdriverIO.Config = {
         if (browser === "firefox") {
             return { browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: ["--headless"]} };
         } else if (browser === "android") {
-            return {port: 4723,platformName: "android", browserName: "Chrome","appium:automationName": "UIAutomator2","appium:chromedriverAutodownload": true
+            return {port: 4723,platformName: "Android", browserName: "Chrome","appium:automationName": "UIAutomator2",
+                "appium:chromedriverExecutable": path.resolve("./test/testdata/chromedriver/chromedriver.exe")
                 ,"appium:chromedriverOptions": {
                     args: ["--disable-web-security", "--allow-running-insecure-content"]
                 }

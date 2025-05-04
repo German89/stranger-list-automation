@@ -13,4 +13,4 @@ COPY . .
 
 # Default command to install (again) and launch your WebdriverIO tests.
 # Note: The command in docker-compose.yml can override this CMD.
-CMD ["sh", "-c", "npm install && npx wdio run ./wdio.conf.js"]
+CMD ["sh", "-c", "npm install"]

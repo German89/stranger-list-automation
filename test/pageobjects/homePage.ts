@@ -3,7 +3,7 @@ import {browser} from "@wdio/globals";
 
 class HomePage extends Page{
     private editButtonXpath = "//div/button[text()='Edit']";
-    private deleteButtonXpath = "[ng-click='strangerlist.open(item)']";
+    private deleteButton = "[ng-click='strangerlist.open(item)']";
 
     public get uploadImageNewItem(){
         return $('#inputImage');
@@ -58,7 +58,7 @@ class HomePage extends Page{
      * @param item element
      */
     public async clickDeleteButtonOfItem(item: ChainablePromiseElement){
-        await this.clickOnButton(item.$(this.deleteButtonXpath));
+        await this.clickOnButton(item.$(this.deleteButton));
     }
 
     /**
