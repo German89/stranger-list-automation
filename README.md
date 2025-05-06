@@ -54,4 +54,4 @@ Tests can run in chrome or firefox using Selenium hub and docker containers.
 2 - Docker hub will start by default at "http://localhost:4444/ui/" where you can monitor which container is in use.
 
 3 - On the root of the project run the following command providing the environment variables to target the selenium-hub and use the containers, provide a value for the browsers flag to choose the browser
-"$env:SELENIUM_REMOTE_URL="localhost"; $env:PORT="4444"; $env:REMOTE_PATH="/wd/hub"; npx wdio run wdio.conf.js --browsers=chrome"
+"npx wdio run wdio.conf.js --browsers=firefox --SELENIUM_REMOTE_URL=localhost --PORT=4444 --REMOTE_PATH=/wd/hub"
