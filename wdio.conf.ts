@@ -2,13 +2,21 @@ import fs from "fs";
 import path from "path";
 const browserArgs = process.argv.find(arg => arg.includes("--browsers="))?.split("=")[1];
 const browserList = browserArgs ? browserArgs.split(",") : ["chrome"]; // Default to Chrome
+const remoteUrl =  process.argv.find(arg => arg.includes("SELENIUM_REMOTE_URL"))?.split("=")[1];
+const remotePort =  process.argv.find(arg => arg.includes("PORT"))?.split("=")[1];
+const remotePath =  process.argv.find(arg => arg.includes("REMOTE_PATH"))?.split("=")[1];
+console.log("Remote URL: " + remoteUrl);
+console.log("Remote Port: " + remotePort);
+console.log("Remote Path: " + remotePath);
+console.log("Browser List: " + browserList);
 
 export const config: WebdriverIO.Config = {
 
     //If hostname, port and path are specified use them, if not it's just a local run
-    hostname: process.env.SELENIUM_REMOTE_URL ? process.env.SELENIUM_REMOTE_URL : undefined,
-    port: process.env.PORT ? parseInt(process.env.PORT) : undefined,
-    path: process.env.REMOTE_PATH ? process.env.REMOTE_PATH : undefined,
+
+    hostname: remoteUrl,
+    port:remotePort? parseInt(remotePort) : undefined,
+    path:remotePath,
 
 
     //
@@ -67,7 +75,7 @@ export const config: WebdriverIO.Config = {
     //If no browser is specified the framework defaults to chrome
     capabilities: browserList.map(browser => {
         if (browser === "firefox") {
-            return { browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: ["--headless"]} };
+            return { browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: []} };
         } else if (browser === "android") {
             return {port: 4723,platformName: "Android", browserName: "Chrome","appium:automationName": "UIAutomator2",
                 "appium:chromedriverExecutable": path.resolve("./test/testdata/chromedriver/chromedriver.exe")
@@ -76,7 +84,7 @@ export const config: WebdriverIO.Config = {
                 }
             }
         }else{
-            return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content", "--disable-gpu"] }};
+            return { browserName: "chrome", "goog:chromeOptions": { args: ["--start-maximized","--allow-running-insecure-content", "--disable-gpu"] }};
         }
     }),
 
