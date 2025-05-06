@@ -75,7 +75,7 @@ export const config: WebdriverIO.Config = {
     //If no browser is specified the framework defaults to chrome
     capabilities: browserList.map(browser => {
         if (browser === "firefox") {
-            return { browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: []} };
+            return { browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: ["--headless"]} };
         } else if (browser === "android") {
             return {port: 4723,platformName: "Android", browserName: "Chrome","appium:automationName": "UIAutomator2",
                 "appium:chromedriverExecutable": path.resolve("./test/testdata/chromedriver/chromedriver.exe")
@@ -84,7 +84,7 @@ export const config: WebdriverIO.Config = {
                 }
             }
         }else{
-            return { browserName: "chrome", "goog:chromeOptions": { args: ["--start-maximized","--allow-running-insecure-content", "--disable-gpu"] }};
+            return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content", "--disable-gpu"] }};
         }
     }),
 
