@@ -49,9 +49,6 @@ Steps to run in docker containers.
 -------------------------------------------------------------
 Tests can run in chrome or firefox using Selenium hub and docker containers.
 
-1 - On the root of the project run the following command to start the containers and selenium-hub "docker-compose up -d"
+1 - On the root of the project run the following command to start the containers and selenium-hub "docker-compose up --build"
 
-2 - Docker hub will start by default at "http://localhost:4444/ui/" where you can monitor which container is in use.
-
-3 - On the root of the project run the following command providing the environment variables to target the selenium-hub and use the containers, provide a value for the browsers flag to choose the browser
-"npx wdio run wdio.conf.js --browsers=firefox --SELENIUM_REMOTE_URL=localhost --PORT=4444 --REMOTE_PATH=/wd/hub"
+2 - The container will install git, pull the master branch from this repositroy, run npm install and then npx wdio run wdio.conf.ts --browsers=firefox which will execute the tests.
