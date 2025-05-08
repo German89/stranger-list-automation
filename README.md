@@ -47,7 +47,7 @@ You should see the command passing through the appium server adn the chrome brow
 
 Steps to run in docker containers.
 -------------------------------------------------------------
-Tests can run in chrome or firefox using Selenium hub and docker containers.
+Tests can run in chrome or firefox in a docker container.
 
 1 - On the root of the project run the following command to start the containers and selenium-hub "docker-compose up --build"
 
