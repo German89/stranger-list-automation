@@ -13,13 +13,3 @@ RUN apt-get update && \
 # Copy package files and install dependencies
 # Clone WebdriverIO test repository
 RUN git clone https://github.com/German89/stranger-list-automation.git .
-
-# Install dependencies
-RUN npm install
-
-# Start Chromedriver on port 9515
-CMD chromedriver --port=9515 &
-
-RUN npm install
-
-RUN npx wdio run wdio.conf.js --PORT=9515

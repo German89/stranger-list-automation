@@ -3,9 +3,8 @@ services:
   webdriverio:
     build: .
     container_name: webdriverio_tests
-    volumes:
-      - .:/app
     environment:
       - DISPLAY=:99
     network_mode: "host"
+    command: sh -c "npm install && npx wdio run wdio.conf.ts --browsers=firefox"
 
