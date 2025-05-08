@@ -1,44 +1,10 @@
-version: "3.8"
-
+version: '3.8'
 services:
-  selenium-hub:
-    image: selenium/hub:latest
-    container_name: selenium-hub
-    ports:
-      - "4444:4444"
-
-  chrome:
-    image: selenium/node-chrome:latest
-    container_name: chrome
-    depends_on:
-      - selenium-hub
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-
-  firefox:
-    image: selenium/node-firefox:latest
-    container_name: firefox
-    depends_on:
-      - selenium-hub
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-
-  test-runner:
+  webdriverio:
     build: .
-    container_name: test-runner
-    depends_on:
-      - selenium-hub
-      - chrome
-      - firefox
-    environment:
-      # This must match your WebdriverIO configuration (e.g., hostname, port, path)
-      - SELENIUM_REMOTE_URL=http://selenium-hub:4444/wd/hub
+    container_name: webdriverio_tests
     volumes:
       - .:/app
-    working_dir: /app
-    command: >
-      sh -c "npm install"
+    environment:
+      - DISPLAY=:99
+    network_mode: "host"
