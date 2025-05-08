@@ -137,7 +137,7 @@ export const config: WebdriverIO.Config = {
     // commands. Instead, they hook themselves up into the test process.
     // services: [],
 
-    services: ['chromedriver'],
+    //services: ['browser-runner'],
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
