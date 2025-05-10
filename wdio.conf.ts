@@ -85,7 +85,7 @@ export const config: WebdriverIO.Config = {
             }
         }else{
             return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content",
-                        "--disable-gpu", "--user-data-dir=/tmp/chrome-user-data-" + new Date().getTime()] }};
+                        "--disable-gpu","--no-sandbox"] }};
         }
     }),
 

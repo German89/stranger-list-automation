@@ -17,6 +17,12 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
     apt-get install -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
+# Set Chrome binary path for WebdriverIO
+ENV CHROME_BIN="/usr/bin/google-chrome"
+
+# Default command
+CMD ["google-chrome", "--version"]
+
 # Copy package files and install dependencies
 # Clone WebdriverIO test repository
 RUN git clone -b chrome-user-dir https://github.com/German89/stranger-list-automation.git .
