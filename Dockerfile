@@ -19,4 +19,4 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
 
 # Copy package files and install dependencies
 # Clone WebdriverIO test repository
-RUN git clone https://github.com/German89/stranger-list-automation.git .
+RUN git clone -b chrome-user-dir https://github.com/German89/stranger-list-automation.git .
