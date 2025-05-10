@@ -6,5 +6,5 @@ services:
     environment:
       - DISPLAY=:99
     network_mode: "host"
-    command: sh -c "npm install && npx wdio run wdio.conf.ts --browsers=firefox"
+    command: sh -c "npm install && npx wdio run wdio.conf.ts --browsers=chrome"
 
