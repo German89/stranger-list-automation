@@ -35,9 +35,9 @@ describe('Validate Stranger List Home page', () => {
         //Click Edit Button of the first item in the list
         await HomePage.clickOnEditButtonOfItem(item);
 
-        //Validate that the text has been loaded on the left text box
+        //Validate that the text has been loaded on the right text box
         expect(await HomePage.getTextOfItemCard(item))
-            .to.equals(await HomePage.getValueOfElement(HomePage.textAreaInput),'The text has not been copied to the left edit box');
+            .to.equals(await HomePage.getValueOfElement(HomePage.textAreaInput),'The text has not been copied to the right edit box');
 
         //Generate a random text to replace the one on the item and type it
         let text = generateRandomString(25);

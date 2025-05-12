@@ -13,7 +13,6 @@ console.log("Browser List: " + browserList);
 export const config: WebdriverIO.Config = {
 
     //If hostname, port and path are specified use them, if not it's just a local run
-
     hostname: remoteUrl,
     port:remotePort? parseInt(remotePort) : undefined,
     path:remotePath,
@@ -66,24 +65,21 @@ export const config: WebdriverIO.Config = {
     // from the same test should run tests.
     //
     maxInstances: 10,
-    //
-    // If you have trouble getting all important capabilities together, check out the
-    // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://saucelabs.com/platform/platform-configurator
     // Test can run on multiples browsers (firefox, chrome or android chrome) by specifying the browser list using --browser=firefox,chrome,android
     //when running the command "npx wdio run wdio.conf.ts --browser=firefox,chrome,android"
     //If no browser is specified the framework defaults to chrome
     capabilities: browserList.map(browser => {
         if (browser === "firefox") {
             return { browserName: "firefox", "moz:firefoxOptions":{prefs:{"security.mixed_content.block_active_content": false},args: ["--headless"]} };
-        } else if (browser === "android") {
+        }
+        else if (browser === "android") {
             return {port: 4723,platformName: "Android", browserName: "Chrome","appium:automationName": "UIAutomator2",
                 "appium:chromedriverExecutable": path.resolve("./test/testdata/chromedriver/chromedriver.exe")
                 ,"appium:chromedriverOptions": {
                     args: ["--disable-web-security", "--allow-running-insecure-content"]
                 }
             }
-        }else{
+        }else {
             return { browserName: "chrome", "goog:chromeOptions": { args: ["--headless","--start-maximized","--allow-running-insecure-content", "--no-sandbox"] }};
         }
     }),
